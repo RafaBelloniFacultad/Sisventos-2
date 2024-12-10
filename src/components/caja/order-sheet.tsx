@@ -32,6 +32,7 @@ export function OrderSheet({ isOpen, onClose, eventId, userId }: OrderSheetProps
   const mutation = useMutation({
     mutationFn: createOrder,
     onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['menuItems', eventId] });
       queryClient.invalidateQueries({ queryKey: ['orders', eventId] })
       setOrderItems({})
       setCustomerIdentifier('')

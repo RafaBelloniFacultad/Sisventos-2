@@ -14,6 +14,19 @@ export async function getMenuItems(eventId: string): Promise<MenuItem[]> {
   })
 }
 
+export async function getMenuItem(id: string): Promise<MenuItem[]> {
+  return await prisma.menuItem.findMany({
+    where: { id },
+    include: {
+      event: {
+        select: {
+          name: true,
+        },
+      },
+    },
+  })
+}
+
 export async function createMenuItem(data: {
   name: string
   description: string
